@@ -1,5 +1,6 @@
 from enum import Enum
 import time
+from IO import IO
 
 class ActorState(Enum):
   idle = 1
@@ -9,18 +10,29 @@ class ActorState(Enum):
   underAttack = 5
   dead = 6
 
-class Actor:
+class Direction(Enum):
+  forward = 1
+  backward = 2
+  left = 3
+  right = 4
+
+class Actor(IO):
   def __init__(self):
     self.state = ActorState.idle
-    print 'init'
+    super()
 
   def searchEnemy(self):
     print 'searchEnemy'
 
   def attack(self):
     self.state = ActorState.attack
-    print 'attck'
 
-  # sta for run
+  def run(self):
+
+  def walk(self):
+
+  def jump(self):
+    self.sendKey('space')
+
   def checkSTA(self):
     return True

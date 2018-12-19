@@ -1,12 +1,12 @@
-import IO
+from IO import IO
 
 class User(IO):
-  def __init__(self, name, account, password):
-    self.name = name
+  def __init__(self, account, password):
     self.account = account
     self.password = password
     super()
 
   def login(self):
-
-  def logout(self):
+    self.sendString(self.account)
+    self.sendString(self.password)
+    self.sendKey('enter')
