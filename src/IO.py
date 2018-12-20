@@ -2,7 +2,7 @@ from ctypes import windll
 from enum import Enum
 import time
 
-dd = windll.loadLibrary('DD64.dll')
+dd = windll.LoadLibrary('DD32.dll')
 KEY_DELAY = 0.1
 
 class MouseButton(Enum):

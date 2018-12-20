@@ -1,12 +1,12 @@
 from IO import IO
 
 class User(IO):
-  def __init__(self, account, password):
+  def __init__(self, account, password, scene):
     self.account = account
     self.password = password
-    super()
+    self.scene = scene
 
   def login(self):
+    win32api.ShellExecute(0, 'open', url, '', '', 1)
     self.sendString(self.account)
     self.sendString(self.password)
-    self.sendKey('enter')

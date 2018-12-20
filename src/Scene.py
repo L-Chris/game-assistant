@@ -6,3 +6,6 @@ class SceneType(Enum):
 class Scene:
   def __init(self):
     self.type = SceneType.instance
+
+  def get(self):
+    return self.type
