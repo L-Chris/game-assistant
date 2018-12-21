@@ -1,4 +1,4 @@
-from ctypes import windll
+from ctypes import *
 from enum import Enum
 import time
 
@@ -46,10 +46,12 @@ class IO:
       print(key + ' is not exists!')
       return
 
+    value = key.value
+
     for i in range(1, count):
-      self.dd.DD_btn(key[0])
+      self.dd.DD_btn(value[0])
       time.sleep(KEY_DELAY)
-      self.dd.DD_btn(key[1])
+      self.dd.DD_btn(value[1])
       time.sleep(KEY_DELAY)
 
   def mouseWheel(self, type, count = 1):
@@ -85,4 +87,4 @@ class IO:
       time.sleep(KEY_DELAY)
 
   def sendString(self, str):
-    dd.DD_str(str)
+    self.dd.DD_str(str)

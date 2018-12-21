@@ -28,11 +28,13 @@ class Actor(IO):
     self.state = ActorState.attack
 
   def run(self):
+    print 'run'
 
   def walk(self):
+    print 'walk'
 
   def jump(self):
-    self.sendKey('space')
+    print 'jump'
 
   def checkSTA(self):
     return True
