@@ -12,6 +12,11 @@ class Window(IO):
       self.hwnd = self.wait(title)
       self.update()
 
+  @staticmethod
+  def exist(self, title):
+    win = win32gui.FindWindow(None, title)
+    return int(win) > 0
+
   def activate(self):
     win32gui.SetActiveWindow(self.hwnd)
 
@@ -34,6 +39,12 @@ class Window(IO):
     left = pos['rectangle'][0][0]
     top = pos['rectangle'][0][1]
     return left, top
+
+  def findWidget(self, dst):
+    src = self.shot()
+    img = aircv.imread(dst)
+    pos = aircv.find_template(src, img)
+    return pos and pos['result'] > 0.95
 
   def position(self):
     left, top, right, bottom = win32gui.GetWindowRect(self.hwnd)
