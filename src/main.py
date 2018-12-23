@@ -1,17 +1,19 @@
 # encoding: utf-8
 import win32gui
 from Window import Window
-from Scene import Scene
 from User import User
+from Actor import Actor
 
-title = ''
+gameWindowTitle = 'Gundam Online'
 
 def main():
-  scene = Scene()
-  user = User('', '', scene)
+  user = User('', '')
+  actor = Actor()
 
-  win = Window(title)
-  if int(win.hwnd) <= 0:
+  if not Window.exist(gameWindowTitle):
     user.login()
+
+  user.run()
+  actor.play()
 
 main()

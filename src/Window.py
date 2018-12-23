@@ -1,6 +1,7 @@
 from PIL import ImageGrab
-import win32gui, win32con
+import win32api, win32gui, win32con
 from IO import IO
+from Widget import Widget
 import cv2
 import aircv
 import time
@@ -13,9 +14,13 @@ class Window(IO):
       self.update()
 
   @staticmethod
-  def exist(self, title):
+  def exist(title):
     win = win32gui.FindWindow(None, title)
     return int(win) > 0
+
+  @staticmethod
+  def start(url):
+    win32api.ShellExecute(0, 'open', url, '', '', 1)
 
   def activate(self):
     win32gui.SetActiveWindow(self.hwnd)
@@ -23,7 +28,7 @@ class Window(IO):
   def wait(self, title):
     hwnd = win32gui.FindWindow(None, title)
     while int(hwnd) <= 0:
-      time.sleep(1)
+      time.sleep(0.2)
       hwnd = win32gui.FindWindow(None, title)
 
     return hwnd
@@ -34,13 +39,13 @@ class Window(IO):
     while not pos or pos['result'] < 0.95:
       src = self.shot()
       pos = aircv.find_template(src, img)
-      time.sleep(1)
+      time.sleep(0.2)
 
     left = pos['rectangle'][0][0]
     top = pos['rectangle'][0][1]
-    return left, top
+    return Widget(left, top)
 
-  def findWidget(self, dst):
+  def existWidget(self, dst):
     src = self.shot()
     img = aircv.imread(dst)
     pos = aircv.find_template(src, img)
@@ -55,9 +60,9 @@ class Window(IO):
     img.save(dst)
     return aircv.imread(dst)
 
-  def click(self, x, y):
+  def click(self, x, y, count = 2):
     self.mouseMove(self.left + x, self.top + y)
-    self.mouseClick('left', 2)
+    self.mouseClick('left', count)
 
   def update(self):
     left, top, right, bottom = self.position()

@@ -1,4 +1,5 @@
 from IO import IO
+from Window import Window
 
 class User(IO):
   def __init__(self, account, password, scene):
@@ -7,6 +8,10 @@ class User(IO):
     self.scene = scene
 
   def login(self):
-    win32api.ShellExecute(0, 'open', url, '', '', 1)
+    if not Window.exist(''):
+      Window.start(url)
     self.sendString(self.account)
     self.sendString(self.password)
+
+  def run(self):
+    print 'run'

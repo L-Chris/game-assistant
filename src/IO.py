@@ -3,7 +3,7 @@ from enum import Enum
 import time
 
 dd = windll.LoadLibrary('DD32.dll')
-KEY_DELAY = 0.1
+KEY_DELAY = 0.02
 
 class MouseButton(Enum):
   left = [1, 2]
@@ -68,6 +68,15 @@ class IO:
     for i in range(1, count):
       self.dd.DD_whl(key)
       time.sleep(KEY_DELAY)
+
+  def send(self, type, mode = 1):
+    key = KeyCode[type]
+
+    if not key:
+      print(key + ' is not exists!')
+      return
+
+    dd.DD_key(key, mode)
 
   def sendKey(self, type, count = 1):
     key = KeyCode[type]
