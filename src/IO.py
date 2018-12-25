@@ -2,7 +2,7 @@ from ctypes import *
 from enum import Enum
 import time
 
-dd = windll.LoadLibrary('DD32.dll')
+dd_dll = windll.LoadLibrary('DD32.dll')
 KEY_DELAY = 0.02
 
 class MouseButton(Enum):
@@ -26,14 +26,11 @@ KeyCode = {
 }
 
 class IO:
-  def __init__(self):
-    self.dd = dd
-
   def mouseMove(self, x, y, relative = False):
     if relative:
-      self.dd.DD_movR(x, y)
+      dd_dll.DD_movR(x, y)
     else:
-      self.dd.DD_mov(x, y)
+      dd_dll.DD_mov(x, y)
 
   def mouseClick(self, type, count = 1):
     key = MouseButton[type]
@@ -49,9 +46,9 @@ class IO:
     value = key.value
 
     for i in range(1, count):
-      self.dd.DD_btn(value[0])
+      dd_dll.DD_btn(value[0])
       time.sleep(KEY_DELAY)
-      self.dd.DD_btn(value[1])
+      dd_dll.DD_btn(value[1])
       time.sleep(KEY_DELAY)
 
   def mouseWheel(self, type, count = 1):
@@ -66,7 +63,7 @@ class IO:
       return
 
     for i in range(1, count):
-      self.dd.DD_whl(key)
+      dd_dll.DD_whl(key)
       time.sleep(KEY_DELAY)
 
   def send(self, type, mode = 1):
@@ -76,7 +73,7 @@ class IO:
       print(key + ' is not exists!')
       return
 
-    dd.DD_key(key, mode)
+    dd_dll.DD_key(key, mode)
 
   def sendKey(self, type, count = 1):
     key = KeyCode[type]
@@ -90,10 +87,10 @@ class IO:
       return
 
     for i in range(1, count):
-      self.dd.DD_key(key, 1)
+      dd_dll.DD_key(key, 1)
       time.sleep(KEY_DELAY)
-      self.dd.DD_key(key, 2)
+      dd_dll.DD_key(key, 2)
       time.sleep(KEY_DELAY)
 
   def sendString(self, str):
-    self.dd.DD_str(str)
+    dd_dll.DD_str(str)

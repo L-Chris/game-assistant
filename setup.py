@@ -16,5 +16,5 @@ setup(
 
     include_package_data = True,
     platforms = 'any',
-    install_requires = ['pillow', 'pywin32', 'aircv', 'opencv3']
+    install_requires = ['pillow', 'pywin32', 'opencv-python', 'aircv']
 )
